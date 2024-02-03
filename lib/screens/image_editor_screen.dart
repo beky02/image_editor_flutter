@@ -48,7 +48,6 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
             )),
       ),
       body: BlocConsumer<ImageEditorCubit, ImageEditorState>(listener: (context, state) {
-        log("FaceRecognitionCubit state -- $state");
         if (state is MoreThanTwoFaceDetectedState) {
           Flushbar(
             backgroundColor: const Color.fromRGBO(0, 0, 0, 0.4),
