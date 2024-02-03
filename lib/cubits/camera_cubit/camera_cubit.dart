@@ -11,27 +11,20 @@ class CameraCubit extends Cubit<CameraState> {
   CameraController? cameraController;
 
   Future<void> initCamera() async {
-    print("callled");
     PermissionStatus cameraStatus = await Permission.camera.status;
     if (cameraStatus.isDenied) {
       PermissionStatus cStatus = await Permission.camera.request();
-    print("callled 1");
 
       if (cStatus.isDenied || cStatus.isPermanentlyDenied) {
-    print("callled 2");
-
         return;
       }
     }
 
     List<CameraDescription> cameras = await availableCameras();
-    print(cameras);
-    // if (cameras.isEmpty) {
-    //   emit(NoCameraState());
-    //   return;
-    // }
-    print("jerrr");
-
+    if (cameras.isEmpty) {
+      emit(NoCameraState());
+      return;
+    }
     cameraController = CameraController(cameras[1], ResolutionPreset.max, enableAudio: true);
 
     try {
@@ -47,7 +40,6 @@ class CameraCubit extends Cubit<CameraState> {
         }
       }
     }
-    print("jerrr 1");
     emit(CameraInitializedState());
   }
 }

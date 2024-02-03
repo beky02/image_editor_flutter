@@ -135,7 +135,7 @@ class _ImageEditorScreenState extends State<ImageEditorScreen> {
                           height: 60,
                           width: 60,
                           onPressed: () {
-                            addDraggableOvalShape(width: 66, height: 33);
+                            addDraggableOvalShape(width: 75, height: 40);
                           },
                           child: const Text(
                             '입',

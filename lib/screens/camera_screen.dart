@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,10 +22,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return BlocConsumer<CameraCubit, CameraState>(listener: (context, state) {
-      log("CameraCubit state --- $state");
-    }, builder: (context, state) {
+    return BlocBuilder<CameraCubit, CameraState>(builder: (context, state) {
       if (state is CameraInitialState) {
         return const Scaffold(
           body: Center(
@@ -70,23 +65,15 @@ class _CameraScreenState extends State<CameraScreen> {
                   children: [
                     GestureDetector(
                         onTap: () async {
-                          // TODO take picture
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BlocProvider<ImageEditorCubit>(
-                                      create: (context) => ImageEditorCubit(imageFilePath: ''),
-                                      child: const ImageEditorScreen())));
-                          // cameraController.takePicture().then((image) {
-                          //   print("image captured ---- $image");
-                          //   Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) => BlocProvider<ImageEditorCubit>(
-                          //               create: (context) =>
-                          //                   ImageEditorCubit(imageFilePath: image.path),
-                          //               child: const ImageEditorScreen())));
-                          // });
+                          cameraController.takePicture().then((image) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BlocProvider<ImageEditorCubit>(
+                                        create: (context) =>
+                                            ImageEditorCubit(imageFilePath: image.path),
+                                        child: const ImageEditorScreen())));
+                          });
                         },
                         child: SvgPicture.asset('assets/icons/camera_button.svg')),
                     const SizedBox(

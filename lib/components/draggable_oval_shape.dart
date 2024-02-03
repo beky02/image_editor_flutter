@@ -36,9 +36,8 @@ class _DraggableOvalShapeState extends State<DraggableOvalShape> {
         child: CustomPaint(
           painter: OvalPainter(),
           child: SizedBox(
-            width: widget.width ?? 45,
-            height: widget.height ?? 26,
-            // You can add child widgets or leave it empty
+            width: widget.width ?? 50,
+            height: widget.height ?? 20,
           ),
         ),
       ),
